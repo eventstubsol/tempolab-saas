@@ -23,12 +23,10 @@ export default function App() {
     return <LoginForm />;
   }
 
-  // Tempo routes
-  const tempoRoutes = import.meta.env.VITE_TEMPO && useRoutes(routes);
-
   return (
     <Router>
-      {tempoRoutes}
+      {/* Tempo routes */}
+      {import.meta.env.VITE_TEMPO && useRoutes(routes)}
       <Routes>
         <Route path="/forms/create" element={<FormBuilderPage />} />
         {/* Add Tempo route before catchall */}
