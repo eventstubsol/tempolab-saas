@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useRoutes } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
+import routes from "tempo-routes";
 import LoginForm from './components/auth/LoginForm';
 import OrganizerDashboard from './components/OrganizerDashboard';
 import { SuperAdminDashboard } from './components/admin';
@@ -24,10 +25,14 @@ export default function App() {
 
   return (
     <Router>
+      {/* Tempo routes */}
+      {import.meta.env.VITE_TEMPO && useRoutes(routes)}
       <Routes>
         <Route path="/forms/create" element={<FormBuilderPage />} />
+        {/* Add Tempo route before catchall */}
+        {import.meta.env.VITE_TEMPO && <Route path="/tempobook/*" />}
         <Route 
-          path="/*" 
+          path="/*"
           element={
             isImpersonating ? (
               <OrganizerDashboard />
